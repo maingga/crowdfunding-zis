@@ -9,11 +9,20 @@ class ProgramWallet extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'wallet_id';
-    protected $fillable = ['program_id','saldo'];
+    protected $table = 'program_wallet'; // ✅ WAJIB
+    protected $primaryKey = 'wallet_id'; // ✅ pastikan sama dg migration
+
+    protected $fillable = [
+        'program_id',
+        'saldo',
+    ];
 
     public function program()
     {
-        return $this->belongsTo(Program::class, 'program_id', 'program_id');
+        return $this->belongsTo(
+            Program::class,
+            'program_id',
+            'program_id'
+        );
     }
 }

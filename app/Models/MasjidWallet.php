@@ -9,6 +9,10 @@ class MasjidWallet extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'masjid_wallet_id';
-    protected $fillable = ['saldo_total'];
+    protected $table = 'masjid_wallet'; // ✅ WAJIB
+    protected $primaryKey = 'masjid_wallet_id'; // ✅ pastikan sama migration
+
+    protected $fillable = [
+        'saldo_total',
+    ];
 }
