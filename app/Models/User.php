@@ -5,16 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    protected $primaryKey = 'user_id';
-    protected $fillable = ['nama','email','password','role','no_hp','alamat'];
-    protected $hidden = ['password'];
+    protected $primaryKey = 'user_id'; // jika database pakai user_id sebagai PK
+    protected $fillable = [
+        'nama',
+        'email',
+        'password',
+        'role',
+        'no_hp',
+        'alamat'
+    ];
+    protected $hidden = ['password', 'remember_token'];
 
-    // Relasi
+    // =====================
+    // RELASI
+    // =====================
     public function programs()
     {
         return $this->hasMany(Program::class, 'created_by', 'user_id');
