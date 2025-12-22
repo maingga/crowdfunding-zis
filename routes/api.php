@@ -10,6 +10,7 @@ use App\Http\Controllers\API\ProgramWalletController;
 use App\Http\Controllers\API\MasjidWalletController;
 use App\Http\Controllers\API\NotificationsController;
 use App\Http\Controllers\API\MidtransController;
+use App\Http\Controllers\API\MidtransCallbackController;
 use Illuminate\Support\Facades\Route;
 
 # =====================
@@ -50,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Midtrans Payment
     Route::get('donations/{donation_id}/midtrans', [MidtransController::class, 'createPayment']);
+    Route::post('midtrans/callback', [MidtransCallbackController::class,'handle']);
 
     # =====================
     # ADMIN-ONLY ROUTES
