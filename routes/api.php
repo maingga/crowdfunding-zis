@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Actions yang hanya bisa dilakukan user login
     Route::apiResource('programs', ProgramController::class)->except(['index','show']);
     Route::apiResource('donations', DonationController::class)->except(['index','show']);
-    Route::apiResource('penyaluran', PenyaluranController::class);
+    Route::apiResource('penyaluran', PenyaluranController::class)->except(['store']); // exclude store karena kita buat custom
     Route::apiResource('mustahik', MustahikController::class);
 
     // Wallets (sensitif)
@@ -58,6 +58,13 @@ Route::middleware('auth:sanctum')->group(function () {
     # =====================
     Route::middleware('role:admin')->group(function () {
         Route::apiResource('users', UserController::class);
+    });
+
+    # =====================
+    # ADMIN OR TAKMIR ROUTES (buat penyaluran)
+    # =====================
+    Route::middleware(['role:admin,takmir'])->group(function () {
+        Route::post('penyaluran', [PenyaluranController::class,'store']);
     });
 
 });
